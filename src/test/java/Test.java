@@ -1,15 +1,20 @@
+import com.apamatesoft.file.Copy;
 import com.apamatesoft.file.Delete;
 import java.io.File;
+import java.util.Arrays;
 
 public class Test {
 
     public static void main(String[] args) {
 
-        File f = new File("destino");
-        System.out.println(">>: file: "+f.getAbsolutePath());
+        File origin = new File("origen");
+        File destiny = new File("destino");
 
-        Delete delete = new Delete(f);
-        delete.delete();
+        Copy copy = new Copy(origin.listFiles(), destiny );
+        copy.start();
+
+//        Delete delete = new Delete(f);
+//        Delete.delete(f);
 
 //        new Delete.Builder(f)
 //            .onBefore( () -> System.out.println("before") )

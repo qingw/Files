@@ -1,6 +1,7 @@
 package com.apamatesoft.file;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,10 +58,10 @@ public class Delete implements Runnable {
     }
 
     public void delete() {
-        delete(files);
+        action(files);
     }
 
-    private void delete(List<File> files) {
+    private void action(List<File> files) {
         for (File a: files) {
             ++i;
             file = a;
@@ -70,6 +71,7 @@ public class Delete implements Runnable {
         }
     }
 
+    //<editor-fold desc="GETTERS">
     public int getI() {
         return i;
     }
@@ -77,6 +79,7 @@ public class Delete implements Runnable {
     public File getFile() {
         return file;
     }
+    //</editor-fold>
 
     public void start() {
         i = -1;
@@ -87,6 +90,25 @@ public class Delete implements Runnable {
     public String toString() {
         return "Delete: { i: "+i+", file: "+file+"}";
     }
+
+    //<editor-fold desc="STATICS">
+    public static void delete(List<File> files) {
+        for (File a: files) {
+            if (a.isDirectory()) delete(Arrays.asList( a.listFiles()) );
+            a.delete();
+        }
+    }
+
+    public static void delete(File[] files) {
+        delete(Arrays.asList(files));
+    }
+
+    public static void delete(File file) {
+        List<File> files = new ArrayList<>();
+        files.add(file);
+        delete(files);
+    }
+    //</editor-fold>
 
     //<editor-fold desc="ADD FUNCTIONS">
     public void onBefore(BeforeFunction f) {

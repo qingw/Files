@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="91ab07c8-6b64-4177-b602-c31ddfcf839b" name="Default Changelist" comment="" />
+    <list default="true" id="91ab07c8-6b64-4177-b602-c31ddfcf839b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Copy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Copy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Delete.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/apamatesoft/file/Delete$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/apamatesoft/file/Delete$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/apamatesoft/file/Delete.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/apamatesoft/file/Delete.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Test.class" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -12,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="357">
+              <caret line="36" column="2" lean-forward="true" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -24,15 +33,41 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Copy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
+            <state relative-caret-position="527">
+              <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
               <folding>
+                <element signature="n#!!doc;n#errorFunction#0;n#Copy#0" />
+                <element signature="n#!!doc;n#files#0;n#Copy#0" />
+                <element signature="n#!!doc;n#Copy#0;n#Copy#0" />
+                <element signature="e#1488#1770#0" />
+                <element signature="method#start#0;class#Copy#0" />
+                <element signature="n#!!doc;n#getFile#0;n#Copy#0" />
+                <element signature="e#2689#2690#0" expanded="true" />
+                <element signature="e#2738#2739#0" expanded="true" />
+                <element signature="e#2512#2830#0" />
+                <element signature="e#2978#3024#1" />
+                <element signature="e#3173#3174#0" expanded="true" />
+                <element signature="e#2921#3663#0" />
                 <element signature="n#!!doc;n#onError#0;n#Copy#0" />
+                <element signature="e#4038#4039#0" expanded="true" />
+                <element signature="e#4118#4119#0" expanded="true" />
+                <element signature="e#4216#4217#0" expanded="true" />
+                <element signature="e#4293#4294#0" expanded="true" />
+                <element signature="e#4373#4374#0" expanded="true" />
                 <element signature="n#!!doc;n#ErrorFunction#0;n#Copy#0" />
-                <element signature="class#ErrorFunction#0;class#Copy#0" />
+                <element signature="e#4089#4132#0" />
+                <element signature="e#4886#4930#0" />
+                <element signature="e#4933#4965#0" />
+                <element signature="e#5237#5270#0" />
+                <element signature="e#5347#5381#0" />
+                <element signature="e#6252#6288#0" />
+                <element signature="e#6957#6958#0" expanded="true" />
+                <element signature="e#6990#6991#0" expanded="true" />
+                <element signature="e#7042#7043#0" expanded="true" />
+                <element signature="e#7082#7083#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -50,36 +85,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Delete.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+            <state relative-caret-position="931">
+              <caret line="159" column="20" selection-start-line="159" selection-start-column="20" selection-end-line="159" selection-end-column="20" />
               <folding>
-                <element signature="n#!!doc;n#errorFunction#0;n#Delete#0" />
+                <element signature="n#!!doc;n#beforeFunction#0;n#Delete#0" />
                 <element signature="n#!!doc;n#files#0;n#Delete#0" />
+                <element signature="n#!!doc;n#Delete#0;n#Delete#0" />
                 <element signature="method#Delete#3;class#Delete#0" />
-                <element signature="e#1597#1598#0" expanded="true" />
-                <element signature="e#1621#1622#0" expanded="true" />
-                <element signature="e#2085#2086#0" expanded="true" />
-                <element signature="e#2141#2142#0" expanded="true" />
-                <element signature="e#2330#2331#0" expanded="true" />
-                <element signature="n#!!doc;n#onError#0;n#Delete#0" />
-                <element signature="e#2451#2452#0" expanded="true" />
-                <element signature="e#2528#2529#0" expanded="true" />
-                <element signature="e#2632#2633#0" expanded="true" />
-                <element signature="e#2712#2713#0" expanded="true" />
-                <element signature="e#2792#2793#0" expanded="true" />
-                <element signature="e#2783#2827#0" />
+                <element signature="method#run#0;class#Delete#0" />
+                <element signature="n#!!doc;n#getI#0;n#Delete#0" />
+                <element signature="method#start#0;class#Delete#0" />
+                <element signature="n#!!doc;n#delete#1;n#Delete#0" />
+                <element signature="method#delete#1;class#Delete#0" />
+                <element signature="method#delete#3;class#Delete#0" />
+                <element signature="n#!!doc;n#onBefore#0;n#Delete#0" />
                 <element signature="class#Builder#0;class#Delete#0" />
                 <element signature="n#!!doc;n#errorFunction#0;n#Builder#0;n#Delete#0" />
                 <element signature="n#!!doc;n#Builder#0;n#Builder#0;n#Delete#0" />
-                <element signature="e#3592#3593#0" expanded="true" />
-                <element signature="e#3649#3650#0" expanded="true" />
-                <element signature="e#3701#3702#0" expanded="true" />
-                <element signature="e#3742#3743#0" expanded="true" />
                 <element signature="n#!!doc;n#onBefore#0;n#Builder#0;n#Delete#0" />
-                <element signature="e#4673#4674#0" expanded="true" />
-                <element signature="e#4715#4716#0" expanded="true" />
-                <element signature="e#4759#4760#0" expanded="true" />
-                <element signature="e#4794#4795#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,15 +122,18 @@
       <find>C\c.html</find>
     </findStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/main/java/com/apamatesoft/files/Files.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Files.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Copy.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Delete.java" />
         <option value="$PROJECT_DIR$/src/test/java/Test.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Copy.java" />
       </list>
     </option>
   </component>
@@ -120,7 +146,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -154,28 +179,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="file" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Files" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Files" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Files" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Files" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550438861380" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550538929956" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.XML" />
   </component>
   <component name="RunDashboard">
@@ -220,7 +233,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.26794872" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.13997555" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -230,7 +243,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3982103" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.38255033" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997722" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -264,60 +277,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Copy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!doc;n#onError#0;n#Copy#0" />
-            <element signature="n#!!doc;n#ErrorFunction#0;n#Copy#0" />
-            <element signature="class#ErrorFunction#0;class#Copy#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Delete.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+        <state relative-caret-position="931">
+          <caret line="159" column="20" selection-start-line="159" selection-start-column="20" selection-end-line="159" selection-end-column="20" />
           <folding>
-            <element signature="n#!!doc;n#errorFunction#0;n#Delete#0" />
+            <element signature="n#!!doc;n#beforeFunction#0;n#Delete#0" />
             <element signature="n#!!doc;n#files#0;n#Delete#0" />
+            <element signature="n#!!doc;n#Delete#0;n#Delete#0" />
             <element signature="method#Delete#3;class#Delete#0" />
-            <element signature="e#1597#1598#0" expanded="true" />
-            <element signature="e#1621#1622#0" expanded="true" />
-            <element signature="e#2085#2086#0" expanded="true" />
-            <element signature="e#2141#2142#0" expanded="true" />
-            <element signature="e#2330#2331#0" expanded="true" />
-            <element signature="n#!!doc;n#onError#0;n#Delete#0" />
-            <element signature="e#2451#2452#0" expanded="true" />
-            <element signature="e#2528#2529#0" expanded="true" />
-            <element signature="e#2632#2633#0" expanded="true" />
-            <element signature="e#2712#2713#0" expanded="true" />
-            <element signature="e#2792#2793#0" expanded="true" />
-            <element signature="e#2783#2827#0" />
+            <element signature="method#run#0;class#Delete#0" />
+            <element signature="n#!!doc;n#getI#0;n#Delete#0" />
+            <element signature="method#start#0;class#Delete#0" />
+            <element signature="n#!!doc;n#delete#1;n#Delete#0" />
+            <element signature="method#delete#1;class#Delete#0" />
+            <element signature="method#delete#3;class#Delete#0" />
+            <element signature="n#!!doc;n#onBefore#0;n#Delete#0" />
             <element signature="class#Builder#0;class#Delete#0" />
             <element signature="n#!!doc;n#errorFunction#0;n#Builder#0;n#Delete#0" />
             <element signature="n#!!doc;n#Builder#0;n#Builder#0;n#Delete#0" />
-            <element signature="e#3592#3593#0" expanded="true" />
-            <element signature="e#3649#3650#0" expanded="true" />
-            <element signature="e#3701#3702#0" expanded="true" />
-            <element signature="e#3742#3743#0" expanded="true" />
             <element signature="n#!!doc;n#onBefore#0;n#Builder#0;n#Delete#0" />
-            <element signature="e#4673#4674#0" expanded="true" />
-            <element signature="e#4715#4716#0" expanded="true" />
-            <element signature="e#4759#4760#0" expanded="true" />
-            <element signature="e#4794#4795#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="357">
+          <caret line="36" column="2" lean-forward="true" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="2" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/apamatesoft/file/Copy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
+          <folding>
+            <element signature="n#!!doc;n#errorFunction#0;n#Copy#0" />
+            <element signature="n#!!doc;n#files#0;n#Copy#0" />
+            <element signature="n#!!doc;n#Copy#0;n#Copy#0" />
+            <element signature="e#1488#1770#0" />
+            <element signature="method#start#0;class#Copy#0" />
+            <element signature="n#!!doc;n#getFile#0;n#Copy#0" />
+            <element signature="e#2689#2690#0" expanded="true" />
+            <element signature="e#2738#2739#0" expanded="true" />
+            <element signature="e#2512#2830#0" />
+            <element signature="e#2978#3024#1" />
+            <element signature="e#3173#3174#0" expanded="true" />
+            <element signature="e#2921#3663#0" />
+            <element signature="n#!!doc;n#onError#0;n#Copy#0" />
+            <element signature="e#4038#4039#0" expanded="true" />
+            <element signature="e#4118#4119#0" expanded="true" />
+            <element signature="e#4216#4217#0" expanded="true" />
+            <element signature="e#4293#4294#0" expanded="true" />
+            <element signature="e#4373#4374#0" expanded="true" />
+            <element signature="n#!!doc;n#ErrorFunction#0;n#Copy#0" />
+            <element signature="e#4089#4132#0" />
+            <element signature="e#4886#4930#0" />
+            <element signature="e#4933#4965#0" />
+            <element signature="e#5237#5270#0" />
+            <element signature="e#5347#5381#0" />
+            <element signature="e#6252#6288#0" />
+            <element signature="e#6957#6958#0" expanded="true" />
+            <element signature="e#6990#6991#0" expanded="true" />
+            <element signature="e#7042#7043#0" expanded="true" />
+            <element signature="e#7082#7083#0" expanded="true" />
           </folding>
         </state>
       </provider>
