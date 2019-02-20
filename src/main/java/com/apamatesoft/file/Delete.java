@@ -35,13 +35,13 @@ public class Delete implements Runnable {
         this.files = Arrays.asList(files);
     }
 
-    public Delete(Builder builder) {
-        files = builder.files;
-        beforeFunction = builder.beforeFunction;
-        updateFunction = builder.updateFunction;
-        fileNotDeletedFunction = builder.fileNotDeletedFunction;
-        errorFunction = builder.errorFunction;
-        finishFunction = builder.finishFunction;
+    private Delete(Builder b) {
+        files = b.files;
+        beforeFunction = b.beforeFunction;
+        updateFunction = b.updateFunction;
+        fileNotDeletedFunction = b.fileNotDeletedFunction;
+        errorFunction = b.errorFunction;
+        finishFunction = b.finishFunction;
     }
     //</editor-fold>
 

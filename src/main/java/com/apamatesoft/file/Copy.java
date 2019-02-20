@@ -67,10 +67,9 @@ public class Copy implements Runnable {
     public void run() {
         try {
             if (beforeFunction!=null) beforeFunction.action();
-
-            //
-            if (wait.size()>0) for (OriginDestiny a: wait) if (alredyExistsFunction!=null) alredyExistsFunction.action(a);
-
+            // NO DEBE FUNCIONAR ASI.
+            copy(files, destiny);
+            if (wait.size()>0 && alredyExistsFunction!=null) alredyExistsFunction.action(this);
         } catch (Exception e) {
             if (errorFunction!=null) errorFunction.action(e);
         } finally {
@@ -79,15 +78,31 @@ public class Copy implements Runnable {
     }
 
     public void start() {
+        wait =  new ArrayList<>();
         i = -1;
         new Thread( this ).start();
     }
 
+    //<editor-fold desc="ACTIOS">
     public void delete(OriginDestiny a) {
 
-        new Delete.Builder(a.destiny)
-            .onFinish( d -> fastCopy(a) )
-            .start();
+        Copy copy = new Builder(a.origin, a.destiny.getParentFile())
+            .onUpdate( () -> System.out.println(">>: copy update") )
+            .onFinish( () -> {
+                if (wait.size()>0) wait.remove(0);
+                if (wait.size()>0 && alredyExistsFunction!=null) alredyExistsFunction.action(this);
+            })
+            .build();
+
+        Delete delete = new Delete.Builder(a.destiny)
+            .onUpdate( u -> System.out.println(">>: delete: "+u) )
+            .onFinish( d -> {
+                System.out.println(">>: delete finish");
+                copy.start();
+            } )
+            .build();
+
+        delete.start();
 
     }
 
@@ -96,6 +111,7 @@ public class Copy implements Runnable {
 
     public void cancel() {
     }
+    //</editor-fold>
 
     //<editor-fold desc="GETTERS">
     public File getFile() {
@@ -105,46 +121,54 @@ public class Copy implements Runnable {
     public int getI() {
         return i;
     }
+
+    public OriginDestiny getOriginDestiny() {
+        return wait.get(0);
+    }
     //</editor-fold>
 
-    public void fastCopy(File origin, File destiny) {
+    public void copy(File[] files, File destiny) throws IOException {
+        copy(Arrays.asList(files), destiny);
+    }
+
+    public void copy(File file, File destiny) throws IOException {
+        List<File> files = new ArrayList<>();
+        files.add(file);
+        copy(files, destiny);
+    }
+
+    private void copy(OriginDestiny a) {
         try {
-            Path a = Paths.get(origin.toURI());
-            Path b = Paths.get(destiny.toURI());
-            Files.copy(a, b, REPLACE_EXISTING);
+            copy(a.origin, a.destiny);
         } catch (Exception e) {
             if (errorFunction!=null) errorFunction.action(e);
         }
     }
 
-    public void fastCopy(OriginDestiny a) {
-        fastCopy(a.origin, a.destiny);
-    }
-
     public void copy(List<File> files, File destiny) throws IOException {
-        System.out.println();
 
         Path from, to;
 
         for (File a: files) {
-
             i++;
             fileOrigin = a;
             if (updateFunction!=null) updateFunction.action();
-
             File b = new File(destiny, a.getName());
             fileDestiny = b;
-            if (b.exists() ){
+            System.out.println(">>: "+i+" origin: "+fileOrigin+", destiny: "+fileDestiny);
+            if (b.exists()) {
+                System.out.println(">>:   archivo \""+b+"\" ya existe");
                 wait.add( new OriginDestiny(fileOrigin, fileDestiny) );
+                System.out.println(">>:   LISTA DE ESPERA");
+                for (OriginDestiny z: wait) {
+                    System.out.println(">>:    - "+z);
+                }
                 continue;
             }
-
             from = Paths.get(a.toURI());
             to = Paths.get(b.toURI());
             Files.copy(from, to, REPLACE_EXISTING);
-
             if (a.isDirectory() && a.listFiles().length>0) copy(Arrays.asList(a.listFiles()), b);
-
         }
 
     }
@@ -184,7 +208,7 @@ public class Copy implements Runnable {
 
     @FunctionalInterface
     public interface AlredyExistsFunction {
-        void action(OriginDestiny a);
+        void action(Copy a);
     }
 
     @FunctionalInterface
@@ -199,6 +223,7 @@ public class Copy implements Runnable {
     //</editor-fold>
 
     public class OriginDestiny {
+
         public File origin;
         public File destiny;
 
@@ -207,6 +232,13 @@ public class Copy implements Runnable {
             this.destiny = destiny;
         }
 
+        @Override
+        public String toString() {
+            return "OriginDestiny{" +
+                "origin=" + origin +
+                ", destiny=" + destiny +
+                '}';
+        }
     }
 
     public static class Builder {
