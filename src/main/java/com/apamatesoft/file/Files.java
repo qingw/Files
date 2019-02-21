@@ -1,6 +1,7 @@
 package com.apamatesoft.file;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 public class Files {
 
@@ -18,6 +19,31 @@ public class Files {
         if (!f.isHidden()) return  NOT_VISIBLE;
         if (!f.canExecute()) return NOT_EXECUTABLE;
         return OTHER;
+    }
+
+
+
+    public static String getName(String file) {
+        String[] s = file.split(Pattern.quote("."));
+        if (s.length<=2) return s[0];
+        String o = "";
+        for (int i=0; i<s.length-1; i++) o += s[i]+( i==(s.length-2) ? "" : ".");
+        return o;
+    }
+
+    public static String getName(File file) {
+        return getName(file.getName());
+    }
+
+    public static String getExtension(String file) {
+        String[] t = file.split(Pattern.quote("."));
+        if (t.length<=1) return "";
+        return t[t.length-1];
+    }
+
+    public static String getExtension(File file) {
+        if (file.isDirectory()) return "";
+        return getExtension(file.getName());
     }
 
 }

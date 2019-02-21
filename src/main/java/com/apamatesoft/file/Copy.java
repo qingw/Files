@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -16,6 +17,8 @@ public class Copy implements Runnable {
     public static final byte ACTION_DELETE = 1;
     public static final byte ACTION_KEEP = 2;
     public static final byte ACTION_NO_COPY = 3;
+
+    public static boolean keep = false;
 
     //<editor-fold desc="FUNCTIONS">
     private BeforeFunction beforeFunction;
@@ -67,7 +70,6 @@ public class Copy implements Runnable {
     public void run() {
         try {
             if (beforeFunction!=null) beforeFunction.action();
-            // NO DEBE FUNCIONAR ASI.
             copy(files, destiny);
             if (wait.size()>0 && alredyExistsFunction!=null) alredyExistsFunction.action(this);
         } catch (Exception e) {
@@ -87,26 +89,35 @@ public class Copy implements Runnable {
     public void delete(OriginDestiny a) {
 
         Copy copy = new Builder(a.origin, a.destiny.getParentFile())
-            .onUpdate( () -> System.out.println(">>: copy update") )
             .onFinish( () -> {
-                if (wait.size()>0) wait.remove(0);
-                if (wait.size()>0 && alredyExistsFunction!=null) alredyExistsFunction.action(this);
+                if (wait.size()>0) {
+                    wait.remove(0);
+                    if (alredyExistsFunction!=null) alredyExistsFunction.action(this);
+                }
             })
             .build();
 
-        Delete delete = new Delete.Builder(a.destiny)
-            .onUpdate( u -> System.out.println(">>: delete: "+u) )
-            .onFinish( d -> {
-                System.out.println(">>: delete finish");
-                copy.start();
-            } )
-            .build();
-
-        delete.start();
+        new Delete.Builder(a.destiny)
+            .onFinish( d -> copy.start() )
+            .start();
 
     }
 
-    public void keep() {
+    // ERRORES:
+    // - ERROR AL RETORNAR OriginDestiny CUANDO NO HAY NADA.
+    // - si cuando voy a copiar ya hay un elemento llamado igual
+    public void keep(OriginDestiny a) {
+        keep = true;
+        new Builder(a.origin, a.destiny.getParentFile())
+            .onFinish( () -> {
+                if (wait.size()>0) {
+                    wait.remove(0);
+                    if (alredyExistsFunction!=null) alredyExistsFunction.action(this);
+                }
+            })
+            .onError( e -> System.out.println(">>: error: "+e.getMessage()))
+            .start();
+
     }
 
     public void cancel() {
@@ -155,15 +166,14 @@ public class Copy implements Runnable {
             if (updateFunction!=null) updateFunction.action();
             File b = new File(destiny, a.getName());
             fileDestiny = b;
-            System.out.println(">>: "+i+" origin: "+fileOrigin+", destiny: "+fileDestiny);
             if (b.exists()) {
-                System.out.println(">>:   archivo \""+b+"\" ya existe");
-                wait.add( new OriginDestiny(fileOrigin, fileDestiny) );
-                System.out.println(">>:   LISTA DE ESPERA");
-                for (OriginDestiny z: wait) {
-                    System.out.println(">>:    - "+z);
+                if (keep) {
+                    b = new File(destiny, getNewName(a.getName()));
+                    keep = false;
+                } else {
+                    wait.add( new OriginDestiny(fileOrigin, fileDestiny) );
+                    continue;
                 }
-                continue;
             }
             from = Paths.get(a.toURI());
             to = Paths.get(b.toURI());
@@ -171,6 +181,23 @@ public class Copy implements Runnable {
             if (a.isDirectory() && a.listFiles().length>0) copy(Arrays.asList(a.listFiles()), b);
         }
 
+    }
+
+    public static String getNewName(File file) {
+        return getNewName(file.getName());
+    }
+
+    // NOTA: archivos con .nombre
+    public static String getNewName(String name) {
+        String[] s = name.split(Pattern.quote("."));
+        String o = "";
+
+        if (!s[0].equals("")) {
+            for (int i=0; i<s.length; i++) o += s[i]+ (i==0 ? "(copy)" : "") +".";
+        } else {
+            for (int i=0; i<s.length; i++) o += s[i]+ (i==1 ? "(copy)" : "") +".";
+        }
+        return o.substring(0, o.length()-1);
     }
 
     //<editor-fold desc="ADD FUNCTIONS">
@@ -239,6 +266,7 @@ public class Copy implements Runnable {
                 ", destiny=" + destiny +
                 '}';
         }
+
     }
 
     public static class Builder {

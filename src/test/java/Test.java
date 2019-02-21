@@ -1,5 +1,6 @@
 import com.apamatesoft.file.Copy;
 import com.apamatesoft.file.Delete;
+import com.apamatesoft.file.Files;
 
 import javax.swing.*;
 import java.io.File;
@@ -8,6 +9,8 @@ import java.util.Arrays;
 public class Test {
 
     public static void main(String[] args) {
+
+        System.out.println(">>: "+Copy.getNewName(".nombre.tar.ext"));
 
         JFrame w = new JFrame();
         JPanel panel = new JPanel();
@@ -34,14 +37,14 @@ public class Test {
                 cancel.setVisible(true);
                 cancel.addActionListener( e -> {
                     cancel.setVisible(false);
-                    f.delete(f.getOriginDestiny());
+                    f.keep(f.getOriginDestiny());
                 });
             })
             .build();
 
-
-
         copy.start();
+
+        // -----------------------------------------------------------------
 
 //        Delete delete = new Delete(f);
 //        Delete.delete(f);
@@ -57,8 +60,6 @@ public class Test {
 //        delete(f.listFiles());
 
 //        new d(f.listFiles(), new File("destino")).start();
-
-
 
 
         w.setSize(800, 600);
