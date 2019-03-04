@@ -21,14 +21,12 @@ public class Files {
         return OTHER;
     }
 
-
-
     public static String getName(String file) {
         String[] s = file.split(Pattern.quote("."));
         if (s.length<=2) return s[0];
         String o = "";
-        for (int i=0; i<s.length-1; i++) o += s[i]+( i==(s.length-2) ? "" : ".");
-        return o;
+        for (int i=0; i<s.length-1; i++) o += s+".";
+        return o.substring(0, o.length()-1);
     }
 
     public static String getName(File file) {
@@ -45,5 +43,7 @@ public class Files {
         if (file.isDirectory()) return "";
         return getExtension(file.getName());
     }
+
+
 
 }

@@ -35,6 +35,7 @@ public class Copy implements Runnable {
     private File fileOrigin, fileDestiny;
     private int i;
     private byte action;
+    private Thread thread;
     //</editor-fold>
 
     //<editor-fold desc="CONSTRUCTOR">
@@ -71,28 +72,36 @@ public class Copy implements Runnable {
         try {
             if (beforeFunction!=null) beforeFunction.action();
             copy(files, destiny);
-            if (wait.size()>0 && alredyExistsFunction!=null) alredyExistsFunction.action(this);
+            if (wait.size()>0 && alredyExistsFunction!=null) {
+                alredyExistsFunction.action(this);
+            }
         } catch (Exception e) {
             if (errorFunction!=null) errorFunction.action(e);
         } finally {
-            if (finishFunction!=null) finishFunction.action();
+            if (finishFunction!=null) finishFunction.action(this);
         }
+        thread.interrupt();
     }
 
     public void start() {
         wait =  new ArrayList<>();
         i = -1;
-        new Thread( this ).start();
+        thread = new Thread(this);
+        thread.setName("HILO COPY");
+        thread.start();
     }
 
     //<editor-fold desc="ACTIOS">
     public void delete(OriginDestiny a) {
 
         Copy copy = new Builder(a.origin, a.destiny.getParentFile())
-            .onFinish( () -> {
+            .onFinish( o -> {
                 if (wait.size()>0) {
                     wait.remove(0);
-                    if (alredyExistsFunction!=null) alredyExistsFunction.action(this);
+                    if (alredyExistsFunction!=null) {
+                        System.out.println(Thread.currentThread().getName()+" | >>: DESDE DELETE");
+                        alredyExistsFunction.action(this);
+                    }
                 }
             })
             .build();
@@ -107,16 +116,36 @@ public class Copy implements Runnable {
     // - ERROR AL RETORNAR OriginDestiny CUANDO NO HAY NADA.
     // - si cuando voy a copiar ya hay un elemento llamado igual
     public void keep(OriginDestiny a) {
+        System.out.println(Thread.currentThread().getName()+" | >>: KEEP");
+
+//        keep = true;
+//
+//        new Builder(a.origin, a.destiny.getParentFile())
+//
+//            .onAlredyExists( f -> {
+//                System.out.println(Thread.currentThread().getName()+" | >>: onAlredyExist from keep");
+//                if (wait.size()>0) {
+//                    wait.remove(0);
+//                    if (wait.size()>0 && alredyExistsFunction!=null) alredyExistsFunction.action(this);
+//                }
+//            })
+//            .onError( e -> System.err.println(">>: error: "+e.getMessage()))
+//            .start();
+
         keep = true;
-        new Builder(a.origin, a.destiny.getParentFile())
-            .onFinish( () -> {
-                if (wait.size()>0) {
-                    wait.remove(0);
-                    if (alredyExistsFunction!=null) alredyExistsFunction.action(this);
-                }
-            })
-            .onError( e -> System.out.println(">>: error: "+e.getMessage()))
-            .start();
+
+        try {
+            if (wait.size()>0) {
+                wait.remove(0);
+                copy(a.origin, a.destiny.getParentFile());
+            }
+            if (wait.size()>0 && finishFunction!=null) {
+                System.out.println(Thread.currentThread().getName()+" | >>: DESDE KEEP");
+                finishFunction.action(this);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -136,7 +165,15 @@ public class Copy implements Runnable {
     public OriginDestiny getOriginDestiny() {
         return wait.get(0);
     }
+
+    public List<OriginDestiny> getFilesWait() {
+        return wait;
+    }
     //</editor-fold>
+
+    public void setKeep(boolean keep) {
+        this.keep = keep;
+    }
 
     public void copy(File[] files, File destiny) throws IOException {
         copy(Arrays.asList(files), destiny);
@@ -157,9 +194,7 @@ public class Copy implements Runnable {
     }
 
     public void copy(List<File> files, File destiny) throws IOException {
-
         Path from, to;
-
         for (File a: files) {
             i++;
             fileOrigin = a;
@@ -168,8 +203,8 @@ public class Copy implements Runnable {
             fileDestiny = b;
             if (b.exists()) {
                 if (keep) {
-                    b = new File(destiny, getNewName(a.getName()));
                     keep = false;
+                    b = new File(destiny, getNewName(a, b.getParentFile()));
                 } else {
                     wait.add( new OriginDestiny(fileOrigin, fileDestiny) );
                     continue;
@@ -180,24 +215,36 @@ public class Copy implements Runnable {
             Files.copy(from, to, REPLACE_EXISTING);
             if (a.isDirectory() && a.listFiles().length>0) copy(Arrays.asList(a.listFiles()), b);
         }
-
     }
 
     public static String getNewName(File file) {
         return getNewName(file.getName());
     }
 
-    // NOTA: archivos con .nombre
     public static String getNewName(String name) {
         String[] s = name.split(Pattern.quote("."));
         String o = "";
-
         if (!s[0].equals("")) {
             for (int i=0; i<s.length; i++) o += s[i]+ (i==0 ? "(copy)" : "") +".";
         } else {
             for (int i=0; i<s.length; i++) o += s[i]+ (i==1 ? "(copy)" : "") +".";
         }
         return o.substring(0, o.length()-1);
+    }
+
+    public static String getNewName(File origin, File destiny) {
+        String[] s = origin.getName().split(Pattern.quote("."));
+        int n = 1;
+        File f;
+        String o;
+        do {
+            o = "";
+            for (int i=0; i<s.length; i++) o += s[i]+(i==(s[0].equals("") ? 1 : 0) ? "("+n+")" : "") +".";
+            o = o.substring(0, o.length()-1);
+            f = new File(destiny, o);
+            n++;
+        } while (f.exists());
+        return o;
     }
 
     //<editor-fold desc="ADD FUNCTIONS">
@@ -245,7 +292,7 @@ public class Copy implements Runnable {
 
     @FunctionalInterface
     public interface FinishFunction {
-        void action();
+        void action(Copy copy);
     }
     //</editor-fold>
 

@@ -1,87 +1,61 @@
-import com.apamatesoft.file.Copy;
-import com.apamatesoft.file.Delete;
-import com.apamatesoft.file.Files;
+import com.apamatesoft.file.Copy2;
 
-import javax.swing.*;
 import java.io.File;
-import java.util.Arrays;
 
 public class Test {
 
+    private static View view;
+    private static File a, b;
+    private static Copy2 copy;
+
     public static void main(String[] args) {
 
-        System.out.println(">>: "+Copy.getNewName(".nombre.tar.ext"));
+        a = new File("origen");
+        b = new File("destino");
 
-        JFrame w = new JFrame();
-        JPanel panel = new JPanel();
-        JButton cancel = new JButton("cancelar");
-        JButton eliminar = new JButton("eliminar");
-        JButton conservar = new JButton("conservar");
-        JLabel label = new JLabel();
-
-        panel.add(conservar);
-        panel.add(eliminar);
-        panel.add(cancel);
-        panel.add(label);
-        w.add(panel);
-
-        // -------------------------------------------------------------------------------------------------------------
-
-        File origin = new File("origen");
-        File destiny = new File("destino");
-
-        Copy copy = new Copy.Builder(origin.listFiles(), destiny )
-//            .onFinish( () -> label.setText("Copia terminada") )
-            .onAlredyExists( f -> {
-                label.setText("archivo \""+f.getOriginDestiny().destiny+"\" ya existe");
-                cancel.setVisible(true);
-                cancel.addActionListener( e -> {
-                    cancel.setVisible(false);
-                    f.keep(f.getOriginDestiny());
-                });
-            })
+        copy = (Copy2) new Copy2.Builder(a.listFiles(), b)
+            .onUpdate( e -> System.out.println("UPDATE I: "+e.getI()))
+            .onBefore( () -> System.out.println("BEFORE") )
+            .onSuccess( Test::onSuccess )
+            .onAfter( () -> System.out.println("AFTER") )
             .build();
 
+        view = new View.Builder()
+            .onClickPlay( Test::play )
+            .onClickRemplazar( Test::remplazar )
+            .onClickIgnorar( Test::ignorar )
+            .onClickMantener( Test::mantener )
+            .build();
+
+    }
+
+    private static void play() {
         copy.start();
+    }
 
-        // -----------------------------------------------------------------
+    private static void remplazar() {
 
-//        Delete delete = new Delete(f);
-//        Delete.delete(f);
+    }
 
-//        new Delete.Builder(f)
-//            .onBefore( () -> System.out.println("before") )
-//            .onUpdate( u -> System.out.println(u) )
-//            .onFileNotDeleted( (file, e) -> System.err.println("Archivo "+file.getAbsolutePath()+" no eliminado, codigo de error: "+e) )
-//            .onError( e-> System.err.println(e.getMessage()) )
-//            .onFinish( u -> System.out.println(u.getI()+" archivos eliminados") )
-//            .start();
+    private static void ignorar() {
 
-//        delete(f.listFiles());
+    }
 
-//        new d(f.listFiles(), new File("destino")).start();
+    private static void mantener() {
+        view.getBtnMantener().setVisible(false);
+        copy.start();
+    }
 
+    private static void onSuccess() {
 
-        w.setSize(800, 600);
-        w.setLayout(null);
+        System.out.println(">>: onSuccess");
+        System.out.println(">>: queue: "+copy.getQueue().size() );
 
-        panel.setLayout(null);
-        panel.setSize(w.getSize());
-
-        cancel.setVisible(false);
-        cancel.setSize(100, 30);
-        cancel.setLocation(10, 10);
-
-        eliminar.setSize(100, 30);
-        eliminar.setLocation(cancel.getWidth()+cancel.getX()+10, 10);
-
-        conservar.setSize(100, 30);
-        conservar.setLocation(eliminar.getWidth()+eliminar.getX()+10, 10);
-
-        label.setSize(200, 30);
-        label.setLocation(10, 100);
-
-        w.setVisible(true);
+        if (copy.getQueue().size()>0) {
+            view.setVisible(view.getBtnMantener());
+            System.out.println(">>: OriginDestiny: "+copy.getQueue().get(0));
+            copy.keepAction(copy.getQueue().get(0).origin, copy.getQueue().get(0).destiny.getParentFile());
+        }
 
     }
 
